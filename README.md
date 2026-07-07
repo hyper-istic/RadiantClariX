@@ -9,12 +9,19 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/hyper-istic/RadiantClariX/stargazers"><img src="https://img.shields.io/github/stars/hyper-istic/RadiantClariX?style=social" alt="Stars"/></a>
+  <a href="https://github.com/hyper-istic/RadiantClariX/network/members"><img src="https://img.shields.io/github/forks/hyper-istic/RadiantClariX?style=social" alt="Forks"/></a>
+</p>
+
+<p align="center">
   <img src="https://skillicons.dev/icons?i=python,react,nodejs,mongodb,pytorch&theme=dark"/>
 </p>
 
 RadiantClariX is an AI-powered medical imaging application that analyzes chest X-rays and detects bone fractures, generating detailed diagnostic reports for healthcare professionals, medical students, and clinics. Built as an AI thesis/portfolio project, it pairs a dual deep-learning pipeline with a mobile-first React Native frontend.
 
 > ⚠️ **For educational and preliminary-analysis purposes only — not a substitute for professional medical diagnosis.** See [Disclaimers](#-important-disclaimers) below.
+
+🔗 **Repo:** [github.com/hyper-istic/RadiantClariX](https://github.com/hyper-istic/RadiantClariX)
 
 ---
 
@@ -23,6 +30,7 @@ RadiantClariX is an AI-powered medical imaging application that analyzes chest X
 - [Key Features](#-key-features)
 - [About the AI Models](#-about-the-ai-models)
 - [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
 - [Getting Started](#-getting-started)
 - [User Guide](#-user-guide)
 - [Ports & Services](#-ports--services)
@@ -74,6 +82,41 @@ AI confidence scores can vary, and false positives/negatives are possible — mo
 
 ---
 
+## 📁 Project Structure
+
+```
+RadiantClariX/
+├── android/          # Native Android project (Expo)
+├── assets/           # Images, fonts, icons
+├── backend/          # Backend services (chest & bone AI model servers, API)
+├── components/       # Reusable React Native components
+├── context/          # React context / global state
+├── docs/             # Additional documentation
+├── models-train/     # Training notebooks & evaluation results
+├── pages/            # App screens
+├── services/         # API clients / service layer
+├── App.js            # App entry point
+├── app.json           # Expo config
+└── package.json
+```
+
+> The frontend is the project root itself (Expo/React Native) — there's no separate `frontend/` folder.
+
+---
+
+## 🧩 Model Weights
+
+The `models-train/` folder in this repo holds the training notebooks and evaluation results — the actual trained weights are hosted on Hugging Face Hub instead, since they're too large for standard Git:
+
+| Model | Hugging Face Repo |
+|---|---|
+| Chest X-Ray Analyzer (BLIP) | [`hyper-istic/radiantclarix-chest-blip`](https://huggingface.co/hyper-istic/radiantclarix-chest-blip) |
+| Bone Fracture Detector (ResNet-50) | [`hyper-istic/radiantclarix-bones-resnet`](https://huggingface.co/hyper-istic/radiantclarix-bones-resnet) |
+
+`inference_script.py` pulls both automatically at runtime — no manual download needed.
+
+---
+
 ## 📦 Getting Started
 
 ### Prerequisites
@@ -83,15 +126,23 @@ AI confidence scores can vary, and false positives/negatives are possible — mo
 - 8 GB RAM minimum, 5 GB free disk space
 - [Expo Go](https://expo.dev/go) app (for mobile) or a web browser
 
-### 1. Start the backend services
+### 0. Clone the repo
 ```bash
-cd D:\xray-app\radiantclarix\backend
-.\start-all-services.ps1
+git clone https://github.com/hyper-istic/RadiantClariX.git
+cd RadiantClariX
 ```
 
-### 2. Start the frontend app
+### 1. Start the backend services
 ```bash
-cd D:\xray-app\radiantclarix
+cd backend
+.\start-all-services.ps1
+```
+> Adjust this if your backend's actual startup script or path differs from what's shown here.
+
+### 2. Start the frontend app
+The frontend lives at the repo root (`App.js`, `app.json`, `package.json`), so from the project root:
+```bash
+npm install
 npm start
 ```
 
@@ -207,7 +258,6 @@ Yes — fully private, user-only access.
 | **Last Updated** | October 30, 2025 |
 
 ---
-
 <p align="center"><i>Built with 🩻 + 🧠 as part of an AI research portfolio. For technical support, contact the project maintainer.</i></p>
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:2E9EF7,100:6A5AF9&height=100&section=footer" width="100%"/>
